@@ -1,2 +1,23 @@
 ---
-# tasks file for haproxy
+- name: Install requirement packages
+  apt:
+    name: ['software-properties-common']
+    state: present
+    update_cache: yes
+- name: Add haproxy repository
+  apt_repository:
+    repo: ppa:vbernat/haproxy-2.0
+- name: Install haproxy package
+  apt:
+    name: ['haproxy=2.0.*']
+    state: present
+    update_cache: yes
+- name: Upload config files of haproxy
+  template:
+    src: haproxy.cfg.j2
+    dest: "/etc/haproxy/haproxy.cfg"
+- name: Start haproxy service
+  systemd:
+    state: restarted
+    name: haproxy
+    enabled: yes

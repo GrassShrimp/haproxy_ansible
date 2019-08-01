@@ -1,2 +1,9 @@
 ---
-# vars file for haproxy
+frontend:
+  name: kubernetes-apiserver
+  bind_port: 16443
+backend:
+  name: kubernetes-apiserver
+  services:
+    - { hostname: 'master-1', ip_address: '172.28.128.3', port: 6443 }
+    - { hostname: 'master-2', ip_address: '172.28.128.4', port: 6443 }
