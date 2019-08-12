@@ -1,4 +1,11 @@
 ---
+- name: enable ip_nonlocal_bind
+  sysctl:
+    name: net.ipv4.ip_nonlocal_bind
+    value: "1"
+    sysctl_set: yes
+    state: present
+    reload: yes
 - name: Install requirement packages
   apt:
     name: ['software-properties-common']
