@@ -1,0 +1,19 @@
+---
+- name: stop keepalived service
+  systemd:
+    state: stopped
+    name: haproxy
+- name: remove haproxy package
+  apt:
+      name: ['haproxy']
+      state: absent
+      autoremove: yes
+      purge: yes
+- name: remove haproxy repository
+  apt_repository:
+    repo: ppa:vbernat/haproxy-2.0
+    state: absent
+- name: remove config from server
+  file:
+    path: "/etc/haproxy/haproxy.cfg"
+    state: absent
